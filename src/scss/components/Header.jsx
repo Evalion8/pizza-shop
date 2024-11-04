@@ -11,10 +11,10 @@ function Header() {
             <p>самая вкусная пицца во вселенной</p>
           </div>
         </div>
-        <div class="header__cart">
-          <a href="/cart.html" class="button button--cart">
+        <div className="header__cart">
+          <a href="/cart.html" className="button button--cart">
             <span>520 ₽</span>
-            <div class="button__delimiter"></div>
+            <div className="button__delimiter"></div>
             <svg
               width="18"
               height="18"

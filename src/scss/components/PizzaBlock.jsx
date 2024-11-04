@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import PizzaPic from '../../assets/img/3799722_10219.svg';
 
 function PizzaBlock(props) {
   const [activeType, setActiveType] = useState();
@@ -7,16 +8,17 @@ function PizzaBlock(props) {
   const typeNames = ['тонкое', 'традиционное'];
 
   const [pizzaCount, setCount] = useState(0);
-  const { title, price, image, types, sizes } = props;
+  const { title, price, types, sizes } = props;
 
   return (
     <div className="pizza-block">
-      <img className="pizza-block__image" src={image} alt="Pizza" />
+      <img className="pizza-block__image" src={PizzaPic} alt="Pizza" />
       <h4 className="pizza-block__title">{title}</h4>
       <div className="pizza-block__selector">
         <ul>
           {types.map((type) => (
             <li
+              key={type}
               onClick={() => setActiveType(type)}
               className={activeType === type ? 'active' : ''}>
               {typeNames[type]}
@@ -26,6 +28,7 @@ function PizzaBlock(props) {
         <ul>
           {sizes.map((size, i) => (
             <li
+              key={size}
               onClick={() => setActivSize(i)}
               className={activeSize === i ? 'active' : ''}>
               {size} см.
@@ -37,7 +40,7 @@ function PizzaBlock(props) {
         <div className="pizza-block__price">{price}₽</div>
         <button
           onClick={() => setCount(pizzaCount + 1)}
-          class="button button--outline button--add">
+          className="button button--outline button--add">
           <svg
             width="12"
             height="12"

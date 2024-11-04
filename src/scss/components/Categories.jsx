@@ -8,10 +8,10 @@ function Categories() {
   };
 
   return (
-    <div class="categories">
+    <div className="categories">
       <ul>
         {categorylist.map((value, i) => (
-          <li
+          <li key={i}
             onClick={() => onClickCategory(i)}
             className={activeIndex === i ? 'active' : ''}>
             {value}
