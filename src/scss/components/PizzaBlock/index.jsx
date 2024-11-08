@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import PizzaPic from '../../assets/img/3799722_10219.svg';
+import PizzaPic from '/Users/eva_1/Desktop/dodoapp/src/assets/img/3799722_10219.svg';
 
 function PizzaBlock(props) {
   const [activeType, setActiveType] = useState();
