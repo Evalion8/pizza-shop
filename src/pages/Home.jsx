@@ -9,27 +9,46 @@ import Skeleton from '../scss/components/PizzaBlock/Skeleton.jsx';
 const Home = () => {
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [categoryId, setCategoryId] = useState(0);
+  const [sortType, setSortType] = useState({
+    name: 'популярности',
+    sortProperty: 'rating',
+  });
 
   useEffect(() => {
-    fetch('https://6729d3696d5fa4901b6e8490.mockapi.io/items')
+    setIsLoading(true);
+    fetch(
+      `https://6729d3696d5fa4901b6e8490.mockapi.io/items?${
+        categoryId > 0 ? `categoryId=${categoryId}` : ''
+      }&sortBy=${sortType.sortProperty}&order=desc`
+    )
       .then((res) => res.json())
       .then((arr) => {
         setItems(arr);
         setIsLoading(false);
       });
     window.scrollTo(0, 0);
-  }, []);
+  }, [categoryId, sortType]);
+
+  console.log(categoryId, sortType);
   return (
-    <div class="container">
+    <div className="container">
       <div className="content__top">
-        <Categories />
-        <Sort />
+        <Categories
+          value={categoryId}
+          onChangeCategory={(i) => setCategoryId(i)}
+        />
+        <Sort value={sortType} onChangeSort={(i) => setSortType(i)} />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">
-        {isLoading
-          ? [...new Array(8)].map((_, index) => <Skeleton key={index} />)
-          : items?.map((obj) => <PizzaBlock key={obj.id} {...obj} />)}
+        {isLoading ? (
+          [...new Array(8)].map((_, index) => <Skeleton key={index} />)
+        ) : Array.isArray(items) ? (
+          items.map((obj) => <PizzaBlock key={obj.id} {...obj} />)
+        ) : (
+          <div>No items available</div>
+        )}
       </div>
     </div>
   );
